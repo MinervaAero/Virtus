@@ -5,6 +5,7 @@ from performance import *
 from stability import *
 import numpy as np
 import pandas as pd
+import time
 
 class Simulator():
 
@@ -75,7 +76,7 @@ class Simulator():
         return stall, b_stall
 
     # Cria e roda um caso de angulo de ataque definido e armazena os coeficientes desejados
-    def run_a(self, a= 0): #mantido (mas confirmar)
+    def run_a(self, a= 0): #mantido
 
         #a_case = Case(name='a', alpha=a, density= self.rho, Mach= self.mach, velocity= self.v, X_cg=self.prototype.x_cg, Z_cg=self.prototype.z_cg)
 
@@ -107,7 +108,7 @@ class Simulator():
             raise
 
     #LEMBRANDO... EFEITO SOLO NO VLM É CONHECIDO POR SUPERESTIMAÇÃO, PRINCIPALMENTE EM H/C < 0.7
-    def run_ge(self): #mantido (mas confirmar)
+    def run_ge(self): #mantido
         
         print('Calculando coeficientes em efeito solo')
 
@@ -122,7 +123,7 @@ class Simulator():
         return a_results
 
     # Roda uma simulação para cada ângulo de ataque até o estol
-    def run_stall(self): #mantido (mas confirmar)
+    def run_stall(self): #mantido
     
          
         for a in np.arange(5,12,2):
@@ -274,3 +275,24 @@ class Simulator():
         
 
         return self.score
+if __name__ == '__main__':
+        banana = Prototype(3.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 0, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= False)
+        banana_ge = Prototype(3.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 0, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= True)
+        
+        a0 = Case(name='a0', alpha=0, X_cg= banana.x_cg, Z_cg= banana.z_cg)
+    
+        session=Session(geometry=banana.geometry,cases=[a0])
+
+        session._run_analysis
+
+
+        results= session.get_results()
+
+        with open('./out.json', 'w') as f:
+            f.write(json.dumps(results))
+        
+
+        bananasimulation = Simulator(banana, banana_ge, p= 905.5, t= 25, v=10, mach=0.00)
+        bananasimulation.run_a(0)
+        time.sleep(1000)
+ 

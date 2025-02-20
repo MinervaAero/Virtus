@@ -1,6 +1,7 @@
 from avlwrapper import *
 from mass import *
 from support import *
+from math import *
 
 def h_const(ev_z,ev_b): #mantido
     '''
@@ -10,14 +11,16 @@ def h_const(ev_z,ev_b): #mantido
     '''
     return ev_z+ev_b
 
-def s_ref(w_cr, w_ci, w_baf,w_ct,w_bt): #alterado (mas confirmar)
+def s_ref(w_cr, w_ci, w_baf,w_ct,w_bt): #alterado
     '''
     Função que calcula a área alar de uma asa com dois afilamentos
+    
+    Se atentar a calculos futuros em simulações simétricas (meia aeronave)
 
     w_cr[m], w_ci[m], w_baf[m],w_ct[m],w_bt[m] -> s_ref[m^2]
 
     '''
-    return 2*(((w_cr+w_ci)*w_baf/2) + ((w_ci+w_ct)/2)*(w_bt-w_baf))
+    return (((w_cr+w_ci)*w_baf/2) + ((w_ci+w_ct)/2)*(w_bt-w_baf))
 
 def c_med(s_ref,w_bt): #mantido
     '''
@@ -27,9 +30,19 @@ def c_med(s_ref,w_bt): #mantido
     '''
     return s_ref/w_bt
 
-def ref_span(w_baf,mac,w_cr,w_bt): #mantido (mas confirmar)
+def z_d(w_b,w_d): 
     '''
-    Função que calcula a distância entre as cordas médias, envergadura de referência
+    Função que calcula a altura de uma secção de uma superfície sustentadora em uma determinada envergadura dado o seu ângulo de diedro. Quando o mesmo se inicia da raíz
+
+    w_b[m],w_d[m] -> w_z[m]
+    '''
+    w_z= w_b*tan(radians(w_d))
+    
+    return w_z
+
+def ref_span(w_baf,mac,w_cr,w_bt): #mantido (precisa alterar na presente versão)
+    '''
+    Função que calcula a distância entre as cordas médias, envergadura de referência para uma asa mista reto-trapezoidal
 
     '''
     return w_baf+(mac/w_cr)*(w_bt-w_baf)
@@ -37,6 +50,8 @@ def ref_span(w_baf,mac,w_cr,w_bt): #mantido (mas confirmar)
 def lvt(ev_x, ev_cr, x_cg): #alterado (mas confirmar)
     '''
     Função que calcula a distância entre o EV e o CG em uma empenagem convencional
+    
+    Considera o centro aerodinâmico do perfil em 25% da corda
     '''
     # Entra a distância em y também
     return (ev_x + (ev_cr/4))-x_cg
@@ -57,9 +72,9 @@ def sht(eh_b,eh_cr, eh_ct): #alterado
     '''
     Função que calcula a área de um EH trapezoidal
     '''
-    return eh_b*(eh_cr+eh_ct)
+    return eh_b*(eh_cr+eh_ct)/2
 
-def lht(eh_x, eh_cr, x_cg): #alterado (mas cofirmar)
+def lht(eh_x, eh_cr, x_cg): #alterado
     '''
     Função que calcula a distância entre o EH e o CG
     '''
@@ -82,7 +97,7 @@ def l_boom(fus_l, eh_x): #mantido
     Função que calcula o comprimento do tailboom em função do comprimento da fuselagem, posição do eh e corda da raíz. Assumindo o início do boom na metade da fuselagem
     '''
 
-    return eh_x-fus_l*0.5   # Boom começando no meio da fuselagem
+    return eh_x-fus_l*0.5   # Boom começando no meio da fuselagem (possível ponto pra discussão)
 
 
 class Prototype():
@@ -107,10 +122,12 @@ class Prototype():
         self.w_baf= w_baf           # Ponto de transição da envergadura
         self.w_bt= w_bt             # Envergadura total
         self.w_cr= w_cr             # Corda da raíz
+        self.w_ci= w_ci             # Corda intermediária
         self.w_ct= w_ct             # Corda da ponta
         self.w_inc= w_inc           # Ângulo de incidência da asa
         self.w_wo= w_wo             # Washout na ponta da asa
         self.w_z= w_z               # Altura da asa em relação ao chão
+        self.w_d= w_d               # Ângulo de diedro
 
         # EH
         eh_ct= eh_ct*eh_cr          # O input de eh_ct é porcentagem da corda da raíz (eh_cr), convertendo para [m]
@@ -156,20 +173,19 @@ class Prototype():
         self.boom_l= l_boom(self.fus_l, self.eh_x)
 
         #VALORES DE REFERÊNCIA (ficar atento à implementação do cg aqui)
-        self.s_ref= s_ref(self.w_cr,self.w_baf,self.w_ct,self.w_bt)
+        self.s_ref= s_ref(self.w_cr, self.w_ci, self.w_baf, self.w_ct, self.w_bt)
         self.c_med= c_med(self.s_ref,self.w_bt)
         self.mac= mac(0, self.w_bt, self.w_baf, self.w_cr, self.w_ct)
         self.ref_span= ref_span(self.w_baf,self.mac,self.w_cr,self.w_bt)
         #Para o volume de cauda vertical
-        self.svt= svt(self.ev_c,self.ev_b)
+        self.svt= svt(self.ev_cr, self.ev_ct, self.ev_b)
         #Para o volume horizontal    
-        self.sht= sht(self.eh_b,self.eh_c)
+        self.sht= sht(self.eh_b,self.eh_cr, self.eh_ct)
         #Para a asa
         self.ar= ar(self.w_bt,self.s_ref)
         self.eh_ar= ar(self.eh_b,self.sht)
 
         # RESTRIÇÕES GEOMÉTRICAS
-        self.h_const = h_const(ev_z,ev_b) # Restrição geométrica de altura
         self.eh_z_const= self.eh_z - self.w_z # Restrição geométrica para eh acima da asa
         
         #Dividindo as envergaduras pela metade devido à simetria. CUIDADO NA HORA DE CALCULAR A ÁREA E OUTRAS PROPRIEDADES MAIS TARDE!!!
@@ -180,17 +196,17 @@ class Prototype():
  ################################################### DEFINIÇÕES DE MASSA E ESTABILIDADE ###################################################
         # ESTABILIDADE
         self.pv= total_m(self.s_ref, self.sht, self.svt, self.fus_h, self.fus_l, self.boom_l)
-        self.x_cg= cg(self.s_ref, self.w_z, self.w_cr, self.sht, self.eh_x, self.eh_z, self.eh_c, self.svt, self.ev_x, self.ev_z, self.ev_c, self.fus_z, self.fus_h, self.fus_l, self.boom_l, self.motor_x, self.motor_z)[0]
-        self.z_cg= cg(self.s_ref, self.w_z, self.w_cr, self.sht, self.eh_x, self.eh_z, self.eh_c, self.svt, self.ev_x, self.ev_z, self.ev_c, self.fus_z, self.fus_h, self.fus_l, self.boom_l, self.motor_x, self.motor_z)[1]
+        self.x_cg= cg(self.s_ref, self.w_z, self.w_cr, self.sht, self.eh_x, self.eh_z, self.eh_cr, self.svt, self.ev_x, self.ev_z, self.ev_cr, self.fus_z, self.fus_h, self.fus_l, self.boom_l, self.motor_x, self.motor_z)[0]
+        self.z_cg= cg(self.s_ref, self.w_z, self.w_cr, self.sht, self.eh_x, self.eh_z, self.eh_cr, self.svt, self.ev_x, self.ev_z, self.ev_cr, self.fus_z, self.fus_h, self.fus_l, self.boom_l, self.motor_x, self.motor_z)[1]
         self.x_cg_p= self.x_cg/self.w_cr    # Posição do CG como fração da corda
 
-        self.lvt= lvt(self.ev_x, self.ev_c, self.x_cg)
+        self.lvt= lvt(self.ev_x, self.ev_cr, self.x_cg)
         self.vvt= vvt(self.lvt,self.svt,self.w_bt,self.s_ref)
 
-        self.lht= lht(self.eh_x, self.eh_c, self.x_cg)
+        self.lht= lht(self.eh_x, self.eh_cr, self.x_cg)
         self.vht= vht(self.lht,self.sht,self.mac,self.s_ref)
 
-        self.low_cg= self.w_z - self.z_cg
+        self.low_cg= self.w_z - self.z_cg   # Restrição do CG abaixo da asa
 
 ################################################### DEFINIÇÃO DOS PERFIS ###################################################
         #Clmax dos perfis para detecção do estol
@@ -230,13 +246,13 @@ class Prototype():
                                     profile_drag= root_profile_drag
                                     )
         
-        self.w_trans_section = Section(leading_edge_point=Point(0, w_baf_h, w_z),
-                                    chord=w_cr,
+        self.w_trans_section = Section(leading_edge_point=Point((w_cr-w_ci)/4, w_baf_h, w_z + z_d(w_baf_h,w_d)),
+                                    chord=w_ci,
                                     airfoil=FileAirfoil(root_foil),
                                     profile_drag= root_profile_drag
                                     )
         
-        self.w_tip_section = Section(leading_edge_point=Point((w_cr-w_ct)/4, w_bt_h, w_z),
+        self.w_tip_section = Section(leading_edge_point=Point(((w_cr-w_ci)/4) + ((w_ci-w_ct)/4) , w_bt_h, w_z + z_d(w_bt_h,w_d)), #necessário incluir função para transformar o ângulo do diedro em altura do perfil
                                     chord=w_ct,
                                     airfoil=FileAirfoil(tip_foil),
                                     profile_drag= tip_profile_drag,
@@ -255,20 +271,20 @@ class Prototype():
                                         controls= [self.elevator]
                                         )
         
-        self.eh_tip_section = Section(leading_edge_point=Point(eh_x, eh_b_h, eh_z),
+        self.eh_tip_section = Section(leading_edge_point=Point(eh_x + (eh_cr-eh_ct)/4, eh_b_h, eh_z),
                                         chord=eh_ct,
                                         airfoil=FileAirfoil(eh_foil),
                                         profile_drag= eh_profile_drag,
                                         controls= [self.elevator]
                                         )
         
-        self.ev_root_section = Section(leading_edge_point=Point(ev_x, eh_b_h, ev_z),
+        self.ev_root_section = Section(leading_edge_point=Point(ev_x, 0, ev_z),
                                         chord=ev_cr,
                                         airfoil=NacaAirfoil(naca='0012'),
                                         profile_drag= naca0012_profile_drag
                                         )
         
-        self.ev_tip_section = Section(leading_edge_point=Point(ev_x, eh_b_h, ev_z+ev_b),
+        self.ev_tip_section = Section(leading_edge_point=Point(ev_x + (ev_cr-eh_ct)/4, 0, ev_z+ev_b),
                                         chord=ev_ct,
                                         airfoil=NacaAirfoil(naca='0012'),
                                         profile_drag= naca0012_profile_drag
@@ -308,9 +324,9 @@ class Prototype():
         if ge:
             #Todas as dimensões de referência são calculadas diretamente, mas podem ser implementadas funções mais acima
             self.geometry = Geometry(name="Prototype",
-                                    reference_area= self.s_ref,
+                                    reference_area= self.s_ref/2,
                                     reference_chord= self.mac,
-                                    reference_span= self.ref_span,
+                                    reference_span= self.ref_span/2,
                                     reference_point=Point(self.x_cg, 0, self.z_cg),
                                     surfaces=[self.wing_surface, self.eh_surface, self.ev_surface],
                                     y_symmetry=Symmetry.symmetric,
@@ -321,9 +337,9 @@ class Prototype():
         else:
 
             self.geometry = Geometry(name="Prototype",
-                                    reference_area= self.s_ref,
+                                    reference_area= self.s_ref/2,
                                     reference_chord= self.mac,
-                                    reference_span= self.ref_span,
+                                    reference_span= self.ref_span/2,
                                     reference_point= Point(self.x_cg, 0, self.z_cg),
                                     surfaces=[self.wing_surface, self.eh_surface, self.ev_surface],
                                     y_symmetry=Symmetry.symmetric
@@ -337,6 +353,12 @@ class Prototype():
         geometry_session= Session(geometry= self.geometry, cases=[])
         geometry_session.show_geometry()
 
-    if __name__ == '__main__':
+    #if __name__ == '__main__':
 
-        print(s_ref(0.566,0.421152*2,0.172,1.09675*2))
+        #print(s_ref(0.566,0.421152*2,0.172,1.09675*2))
+        
+
+if __name__ == '__main__':
+        banana = Prototype(3.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 0, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= False)
+        banana.show_geometry()
+        print(banana.ar, banana.eh_ar)
