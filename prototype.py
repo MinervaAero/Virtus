@@ -296,7 +296,7 @@ class Prototype():
                                     chord_spacing=Spacing.cosine,
                                     n_spanwise=22,
                                     span_spacing=Spacing.neg_sine,
-                                    #y_duplicate=0.0,
+                                    y_duplicate=0.0,
                                     sections=[self.w_root_section,self.w_trans_section, self.w_tip_section],
                                     angle= self.w_inc
                                     )
@@ -306,7 +306,7 @@ class Prototype():
                                     chord_spacing=Spacing.cosine,
                                     n_spanwise=10,
                                     span_spacing=Spacing.equal,
-                                    #y_duplicate=0.0,
+                                    y_duplicate=0.0,
                                     sections=[self.eh_root_section, self.eh_tip_section],
                                     angle= self.eh_inc
                                     )
@@ -324,12 +324,12 @@ class Prototype():
         if ge:
             #Todas as dimensões de referência são calculadas diretamente, mas podem ser implementadas funções mais acima
             self.geometry = Geometry(name="Prototype",
-                                    reference_area= self.s_ref/2,
+                                    reference_area= self.s_ref,
                                     reference_chord= self.mac,
-                                    reference_span= self.ref_span/2,
+                                    reference_span= self.ref_span,
                                     reference_point=Point(self.x_cg, 0, self.z_cg),
                                     surfaces=[self.wing_surface, self.eh_surface, self.ev_surface],
-                                    y_symmetry=Symmetry.symmetric,
+                                    #y_symmetry=Symmetry.symmetric,
                                     z_symmetry=Symmetry.symmetric,
                                     z_symmetry_plane= 0.00
                                     )
@@ -337,12 +337,12 @@ class Prototype():
         else:
 
             self.geometry = Geometry(name="Prototype",
-                                    reference_area= self.s_ref/2,
+                                    reference_area= self.s_ref,
                                     reference_chord= self.mac,
-                                    reference_span= self.ref_span/2,
+                                    reference_span= self.ref_span,
                                     reference_point= Point(self.x_cg, 0, self.z_cg),
                                     surfaces=[self.wing_surface, self.eh_surface, self.ev_surface],
-                                    y_symmetry=Symmetry.symmetric
+                                    #y_symmetry=Symmetry.symmetric
                                     )
 
         

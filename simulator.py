@@ -276,23 +276,24 @@ class Simulator():
 
         return self.score
 if __name__ == '__main__':
-        banana = Prototype(3.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 0, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= False)
-        banana_ge = Prototype(3.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 0, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= True)
+        banana = Prototype(2.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 3, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= False)
+        banana_ge = Prototype(2.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 3, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= True)
         
-        a0 = Case(name='a0', alpha=0, X_cg= banana.x_cg, Z_cg= banana.z_cg)
+        # a0 = Case(name='a0', alpha=0, X_cg= banana.x_cg, Z_cg= banana.z_cg)
     
-        session=Session(geometry=banana.geometry,cases=[a0])
+        # session=Session(geometry=banana.geometry,cases=[a0])
 
-        session._run_analysis
+        # session._run_analysis
 
 
-        results= session.get_results()
+        # results= session.get_results()
 
-        with open('./out.json', 'w') as f:
-            f.write(json.dumps(results))
+        # with open('./out.json', 'w') as f:
+        #     f.write(json.dumps(results))
         
 
         bananasimulation = Simulator(banana, banana_ge, p= 905.5, t= 25, v=10, mach=0.00)
-        bananasimulation.run_a(0)
-        time.sleep(1000)
+        bananasimulation.scorer()
+        # bananasimulation.run_a(0)
+        
  

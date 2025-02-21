@@ -13,27 +13,29 @@ e a necessidade da inclusão de ciclos
 prob= om.Problem()
 
 #Definição dos subsistemas
-individual_inputs= ['w_cr', 'w_ci', 'w_ct', 'w_z', 'w_inc', 'eh_b', 'eh_cr', 'eh_ct', 'eh_inc', 'ev_b', 'ev_ct', 'eh_x', 'eh_z', 'motor_x', 'pot']
-individual_outputs= ['score','cp', 'vht', 'vvt', 'a_trim', 'me', 'ar', 'eh_ar', 'low_cg', 'h_const', 'eh_z_const', 'x_cg_p']
+individual_inputs= ['w_cr', 'w_ci', 'w_ct', 'w_z', 'w_inc', 'w_wo', 'w_d', 'eh_b', 'eh_cr', 'eh_ct', 'eh_inc', 'ev_b', 'ev_ct', 'eh_x', 'eh_z', 'motor_x']
+individual_outputs= ['score','cp', 'vht', 'vvt', 'a_trim', 'me', 'ar', 'eh_ar', 'low_cg', 'eh_z_const', 'x_cg_p']
 
 #Subsistema de avaliação
 prob.model.add_subsystem('individual_scorer', Individual(), promotes_inputs= individual_inputs)
 
-prob.model.set_input_defaults('w_cr', 0.57)
-prob.model.set_input_defaults('w_ci', 0.57) #adicionado
-prob.model.set_input_defaults('w_ct', 0.438)
-prob.model.set_input_defaults('w_z', 0.18)
-prob.model.set_input_defaults('w_inc', 0.6)
-prob.model.set_input_defaults('eh_b', 1.00)
-prob.model.set_input_defaults('eh_cr', 0.269) #adicionado
-prob.model.set_input_defaults('eh_ct', 0.269) #adicionado
-prob.model.set_input_defaults('eh_inc', -0.24)
-prob.model.set_input_defaults('ev_b', 0.182)
-prob.model.set_input_defaults('ev__ct', 0.182) #adicionado
-prob.model.set_input_defaults('eh_x', 1.08)
-prob.model.set_input_defaults('eh_z', 0.25)
-prob.model.set_input_defaults('motor_x', -0.157)
-prob.model.set_input_defaults('pot', 600)     #alterado
+prob.model.set_input_defaults('w_cr', 0.4)
+prob.model.set_input_defaults('w_ci', 0.90) #adicionado
+prob.model.set_input_defaults('w_ct', 0.87)
+prob.model.set_input_defaults('w_z', 0.20)
+prob.model.set_input_defaults('w_inc', 0.0)
+prob.model.set_input_defaults('w_wo', 0.0)
+prob.model.set_input_defaults('w_d', 1.4)
+prob.model.set_input_defaults('eh_b', 0.7)
+prob.model.set_input_defaults('eh_cr', 0.25) #adicionado
+prob.model.set_input_defaults('eh_ct', 0.87) #adicionado
+prob.model.set_input_defaults('eh_inc', 0)
+prob.model.set_input_defaults('ev_b', 0.30)
+prob.model.set_input_defaults('ev_ct', 0.8) #adicionado
+prob.model.set_input_defaults('eh_x', 1.2)
+prob.model.set_input_defaults('eh_z', 0.4)
+prob.model.set_input_defaults('motor_x', -0.2)
+#prob.model.set_input_defaults('pot', 600)     #alterado
 
 #Setup do driver de otimização diferencial
 
@@ -68,21 +70,23 @@ prob.driver.recording_options['record_desvars'] = True
 
 # Adicionando todas as variáveis de design
 
-prob.model.add_design_var('w_cr', lower= 0.25, upper= 0.45) #alterado
-prob.model.add_design_var('w_ci', lower= 0.2125, upper= 0.4275) #adicionado/alterado
-prob.model.add_design_var('w_ct', lower= 0.33, upper= 0.52) #a ser alterado
-prob.model.add_design_var('w_z', lower= 0.18, upper= 0.24) #mantido
-prob.model.add_design_var('w_inc', lower= -2, upper= 4) #alterado
-prob.model.add_design_var('eh_b', lower= 0.6, upper= 0.8) #alterado
-prob.model.add_design_var('eh_cr', lower= 0.20, upper= 0.30) #adicionado
-prob.model.add_design_var('eh_ct', lower= 0.16, upper= 0.285) #adicionado
-prob.model.add_design_var('eh_inc', lower= -2.0, upper= 3.0) #alterado
-prob.model.add_design_var('eh_x', lower= 1.0, upper= 1.4) #alterado
-prob.model.add_design_var('eh_z', lower= 0.3, upper= 0.5) #alterado
-prob.model.add_design_var('ev_b', lower= 0.25, upper= 0.4) #alterado
-prob.model.add_design_var('ev_ct', lower= 0.15, upper= 0.3) #adicionado/a ser alterado
-prob.model.add_design_var('motor_x', lower= -0.3, upper= -0.15) #mantido
-prob.model.add_design_var('pot', lower= 600, upper= 600) #alterado
+prob.model.add_design_var('w_cr', lower= 0.25, upper= 0.45)     #alterado
+prob.model.add_design_var('w_ci', lower= 0.85, upper= 0.95)     #adicionado/alterado
+prob.model.add_design_var('w_ct', lower= 0.80, upper= 0.95)     #alterado
+prob.model.add_design_var('w_z', lower= 0.18, upper= 0.24)      #mantido
+prob.model.add_design_var('w_inc', lower= -2, upper= 4)         #alterado
+prob.model.add_design_var('w_wo', lower= -3, upper= 0)          #adicionado
+prob.model.add_design_var('w_d', lower= 1, upper= 3)            #adicionado
+prob.model.add_design_var('eh_b', lower= 0.6, upper= 0.8)       #alterado
+prob.model.add_design_var('eh_cr', lower= 0.20, upper= 0.30)    #adicionado
+prob.model.add_design_var('eh_ct', lower= 0.80, upper= 0.95)    #adicionado
+prob.model.add_design_var('eh_inc', lower= -2.0, upper= 3.0)    #alterado
+prob.model.add_design_var('eh_x', lower= 1.0, upper= 1.4)       #alterado
+prob.model.add_design_var('eh_z', lower= 0.3, upper= 0.5)       #alterado
+prob.model.add_design_var('ev_b', lower= 0.25, upper= 0.4)      #alterado
+prob.model.add_design_var('ev_ct', lower= 0.70, upper= 0.90)    #adicionado/a ser alterado
+prob.model.add_design_var('motor_x', lower= -0.4, upper= -0.15) #mantido
+#prob.model.add_design_var('pot', lower= 600, upper= 600)        #alterado
 
 prob.model.add_objective('individual_scorer.score', scaler= -1) #-1 para maximizar o valor do score
 
@@ -99,7 +103,7 @@ prob.model.add_constraint('individual_scorer.vvt', lower= vvt_min, upper= vvt_ma
 prob.model.add_constraint('individual_scorer.a_trim', lower= a_trim_min, upper= a_trim_max, scaler= 0.0) # 10 anteriormente
 prob.model.add_constraint('individual_scorer.me', lower= me_min, upper= me_max, scaler= 1)
 prob.model.add_constraint('individual_scorer.low_cg', lower= -0.03, scaler= 1)
-prob.model.add_constraint('individual_scorer.h_const', upper= 0.60, scaler= 1)
+#prob.model.add_constraint('individual_scorer.h_const', upper= 0.60, scaler= 1)
 prob.model.add_constraint('individual_scorer.eh_z_const', lower= 0.05, scaler= 1)
 prob.model.add_constraint('individual_scorer.x_cg_p', lower= 0.25, upper= 0.34, scaler= 0.0) # 100 anteriormente
 
