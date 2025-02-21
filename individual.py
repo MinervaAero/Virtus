@@ -10,6 +10,8 @@ class Individual(om.ExplicitComponent):
     '''
     # Definição de todas as variáveis de design a serem otimizadas
     def setup(self):
+        self.add_input('w_bt', val= 3.0)
+        self.add_input('w_baf', val= 0.2)
         self.add_input('w_cr', val= 0.40)
         self.add_input('w_ci', val= 0.90)         #adicionado
         self.add_input('w_ct', val= 0.87)
@@ -47,6 +49,8 @@ class Individual(om.ExplicitComponent):
     # Aqui definimos o que vamos rodar para cada indivíduo
     def compute(self,inputs,outputs):
         # Antes, precisamos converter os inputs do openmdao (arrays) em floats para as classes e funções dos outros módulos
+        w_bt= float(inputs['w_bt'])
+        w_baf= float(inputs['w_baf'])
         w_cr= float(inputs['w_cr'])
         w_ci= float(inputs['w_ci'])         #adicionado
         w_ct= float(inputs['w_ct'])
@@ -67,8 +71,8 @@ class Individual(om.ExplicitComponent):
 
 
         # Construção dos indivíduos. Para facilitar, está sendo construindo um indivíduo com e o outro sem efeito solo
-        prototype= Prototype(w_cr, w_ci, w_ct, w_z, w_inc, w_wo, w_d, eh_b, eh_cr, eh_ct, eh_inc, ev_b, ev_ct, eh_x, eh_z, motor_x, ge= False)   #alterado (confirmar)
-        prototype_ge= Prototype(w_cr, w_ci, w_ct, w_z, w_inc, w_wo, w_d, eh_b, eh_cr, eh_ct, eh_inc, ev_b, ev_ct, eh_x, eh_z, motor_x, ge= True) #alterado (confirmar)
+        prototype= Prototype(w_bt, w_baf, w_cr, w_ci, w_ct, w_z, w_inc, w_wo, w_d, eh_b, eh_cr, eh_ct, eh_inc, eh_x, eh_z, ev_ct, ev_b, motor_x, motor_z= 0.30, ge= False)   #alterado (confirmar)
+        prototype_ge= Prototype(w_bt, w_baf, w_cr, w_ci, w_ct, w_z, w_inc, w_wo, w_d, eh_b, eh_cr, eh_ct, eh_inc, eh_x, eh_z, ev_ct, ev_b, motor_x, motor_z= 0.30, ge= True) #alterado (confirmar)
         simulator= Simulator(prototype, prototype_ge)
 
         # Rodando a pontuação de cada indivíduo

@@ -156,7 +156,7 @@ class Prototype():
         # MOTOR
         self.motor_x= motor_x       # Posição horizontal do motor. Vai ser negativa em uma configuração convencional
         self.motor_z= motor_z       # Posição vertical do motor
-        self.pot= 600
+        self.pot= 651
 
         # FUSELAGEM E TAILBOOM
         fus_h= self.w_cr*0.12                      # Modelando as placas da fuselagem como retângulos de altura = 12% da corda da raíz

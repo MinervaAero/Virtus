@@ -6,7 +6,7 @@ from math import *
 '''
 Módulo que inclui todos os cálculos de desempenho necessários à otimização do modelo
 '''
-pot = 600 #adicionado (não conseguimos identificar se a variável "pot" era exclusiva dessa parte do código ou se tem outra origem)
+#pot = 600 #adicionado (não conseguimos identificar se a variável "pot" era exclusiva dessa parte do código ou se tem outra origem)
 c_pista= 55
 h_decol= 0.7
 
@@ -23,7 +23,21 @@ def rho(p, t):
 
 def tracd(p, t, v, pot):
 
-    tracd= ((28.709955+0.07366009766*v-0.03187744135*v**2-0.0013809470336*v**3+7.82035332027e-5*v**4-1.160949504525e-6*v**5)*(rho(p,t)/rho(p=1013.25, t=15)))*(pot/712.15)
+    #tracd= ((28.709955+0.07366009766*v-0.03187744135*v**2-0.0013809470336*v**3+7.82035332027e-5*v**4-1.160949504525e-6*v**5)*(rho(p,t)/rho(p=1013.25, t=15)))*(pot/712.15)
+    
+    trac650= (40.691396530109+0.6374625901805*v-0.39434159385213*v**2+0.028296433071339*v**3-0.00068805475237905*v**4)*(rho(p,t)/rho(p=1013.25, t=15))
+
+    trac700= (42.305389981987+0.026804040121956*v-0.20140472951687*v**2+0.013246483129662*v**3-0.00034284828105358*v**4)*(rho(p,t)/rho(p=1013.25, t=15))
+
+    trac750= (46.024270393988-0.42344371921103*v-0.21442574712369*v**2+0.016855206083626*v**3-0.00043684083730426*v**4)*(rho(p,t)/rho(p=1013.25, t=15))
+
+    if pot >= 650 and pot <=700:
+        tracd= (trac650*(700-pot) + trac700*(pot-650))/50
+
+    if pot >= 700 and pot <=750:
+        tracd= (trac700*(750-pot) + trac750*(pot-700))/50
+    
+    
     return tracd
 
 def tracr(cld ,cdd , m):
@@ -209,12 +223,12 @@ def mtow(p, t, v, m, s, clc, clmax, cdc, cdt, pot, g= 9.81, mu= 0.03, n= 1.2, ga
 if __name__ == '__main__':
     print(alt(905,25))
     print(rho(1013,26))
-    #print(tracd(8,1013,26))
+    print(tracd(1013,26,8,650))
     #print(v_estol(10,1013,26,0.8,2.04,9.81))
     #print(d_sol(1013,26,10,10,0.8,1.2,2.04,0.2))
     #print(g_tr(0,1013,26,10,0.8,2.04,9.81,1.2))
     #print(d_trans(1013, 26, 10, 0.8, 2.04, 0.2))
     #print(d_sub(1013, 26, 10, 0.8, 2.04, 0.2))
     #print(d_decol(1013, 26, 10, 10.6, 0.8, 1.2, 2.04, 0.2, 0.3))
-    #print(mtow(1013, 26, 10, 20, 0.8, 1.2, 2.04, 0.2, 0.3))
+    print(mtow(1013, 26, 10, 20, 0.8, 1.2, 2.04, 0.2, 0.3, 650))
 

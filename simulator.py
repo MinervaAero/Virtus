@@ -190,7 +190,6 @@ class Simulator():
         print('Angulo de trimagem=', round(self.a_trim,2), 'graus')
         print('Margem Estatica=', round(self.me,3))
         print('--------------Restricoes-----------------')
-        print('Altura total=', round(self.prototype.h_const,2), 'm')
         print('Altura do EH com relacao a asa=', round(self.prototype.eh_z_const,3), 'm')
         print('--------------Estruturas-----------------')
         print('Peso Vazio=', round(self.prototype.pv,3),'kg')
@@ -275,25 +274,25 @@ class Simulator():
         
 
         return self.score
-if __name__ == '__main__':
-        banana = Prototype(2.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 3, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= False)
-        banana_ge = Prototype(2.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 3, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= True)
+# if __name__ == '__main__':
+#         banana = Prototype(2.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 3, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= False)
+#         banana_ge = Prototype(2.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 3, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= True)
         
-        # a0 = Case(name='a0', alpha=0, X_cg= banana.x_cg, Z_cg= banana.z_cg)
+#         # a0 = Case(name='a0', alpha=0, X_cg= banana.x_cg, Z_cg= banana.z_cg)
     
-        # session=Session(geometry=banana.geometry,cases=[a0])
+#         # session=Session(geometry=banana.geometry,cases=[a0])
 
-        # session._run_analysis
+#         # session._run_analysis
 
 
-        # results= session.get_results()
+#         # results= session.get_results()
 
-        # with open('./out.json', 'w') as f:
-        #     f.write(json.dumps(results))
+#         # with open('./out.json', 'w') as f:
+#         #     f.write(json.dumps(results))
         
 
-        bananasimulation = Simulator(banana, banana_ge, p= 905.5, t= 25, v=10, mach=0.00)
-        bananasimulation.scorer()
-        # bananasimulation.run_a(0)
+#         bananasimulation = Simulator(banana, banana_ge, p= 905.5, t= 25, v=10, mach=0.00)
+#         bananasimulation.scorer()
+#         # bananasimulation.run_a(0)
         
  
