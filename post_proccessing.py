@@ -44,8 +44,8 @@ for proc_n in range(len(proc_case)):
             print('-------------- PROTOTIPO:', case.name[-4:]+'-'+str(proc_n)+' --------------\n')
             print(
                 ' Variaveis de design: (',
-                  ' w_baf= ',float(case.outputs['w_baf']),','
                   ' w_bt= ',float(case.outputs['w_bt']),','
+                  ' w_baf= ',float(case.outputs['w_baf']),','
                   ' w_cr= ',float(case.outputs['w_cr']),','
                   ' w_ci= ',float(case.outputs['w_ci']),','
                   ' w_ct= ',float(case.outputs['w_ct']),','
