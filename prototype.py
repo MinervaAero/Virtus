@@ -228,8 +228,8 @@ class Prototype():
         naca4412_s1223_70_profile_drag= ProfileDrag(cl=[-1.67,-0.57,0.068],cd=[0.0247,0.01,0.042])
 
         # O arquivo .dat deve estar junto com o arquivo deste código, colocar os perfis em uma pasta separada, em primeira análise, gera erros
-        root_foil='MIN1112.dat'
-        tip_foil='MIN1209.dat'
+        root_foil='fx74cl5140.dat'
+        tip_foil='fx62k131.dat'
         eh_foil='NACA4412_S1223_70.dat'
 
         root_profile_drag= min1112_profile_drag
