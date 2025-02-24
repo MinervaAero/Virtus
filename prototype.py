@@ -228,7 +228,7 @@ class Prototype():
         naca4412_s1223_70_profile_drag= ProfileDrag(cl=[-1.67,-0.57,0.068],cd=[0.0247,0.01,0.042])
 
         # O arquivo .dat deve estar junto com o arquivo deste código, colocar os perfis em uma pasta separada, em primeira análise, gera erros
-        root_foil='fx74cl5140.dat'
+        root_foil='fx73cl2152.dat'
         tip_foil='fx62k131.dat'
         eh_foil='NACA4412_S1223_70.dat'
 
@@ -359,6 +359,6 @@ class Prototype():
         
 
 if __name__ == '__main__':
-        banana = Prototype( w_bt= 3.287378607187206, w_baf= 0.8860665194201455, w_cr= 0.4048858990670894, w_ci= 0.85, w_ct= 0.95, w_z= 0.21535834159740058, w_inc= -0.3113330300661503, w_wo= 0.0, w_d= 1.0, eh_b= 0.6750439775454545, eh_cr= 0.28301498383737816, eh_ct= 0.8, eh_inc= 2.3035401013919334, ev_b= 0.39890249519847565, ev_ct= 0.9, eh_x= 1.0, eh_z= 0.40958410221293984, motor_x= -0.4,)
+        banana = Prototype( w_bt= 3.4198159780479185, w_baf= 0.9, w_cr= 0.45, w_ci= 0.95, w_ct= 0.8662243817671794, w_z= 0.18, w_inc= 0.2674686802017355, w_wo= 0.0, w_d= 2.0068862659018567, eh_b= 0.7093482069074675, eh_cr= 0.26879206377124853, eh_ct= 0.9310003242122961, eh_inc= 3.0, ev_b= 0.3696712546117814, ev_ct= 0.9, eh_x= 1.1595948336224073, eh_z= 0.3, motor_x= -0.4,)
         banana.show_geometry()
         print(banana.ar, banana.eh_ar)
