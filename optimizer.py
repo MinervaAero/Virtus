@@ -72,8 +72,8 @@ prob.driver.recording_options['record_desvars'] = True
 
 # Adicionando todas as variáveis de design
 
-prob.model.add_design_var('w_bt', lower= 2.5, upper= 3.5)     #alterado
-prob.model.add_design_var('w_baf', lower= 0.1, upper= 0.9)     #alterado
+prob.model.add_design_var('w_bt', lower= 2.5, upper= 3.5)       #alterado
+prob.model.add_design_var('w_baf', lower= 0.1, upper= 0.9)      #alterado
 prob.model.add_design_var('w_cr', lower= 0.25, upper= 0.45)     #alterado
 prob.model.add_design_var('w_ci', lower= 0.85, upper= 0.95)     #adicionado/alterado
 prob.model.add_design_var('w_ct', lower= 0.80, upper= 0.95)     #alterado
