@@ -97,7 +97,7 @@ def l_boom(fus_l, eh_x): #mantido
     Função que calcula o comprimento do tailboom em função do comprimento da fuselagem, posição do eh e corda da raíz. Assumindo o início do boom na metade da fuselagem
     '''
 
-    return eh_x-fus_l*0.5   # Boom começando no meio da fuselagem (possível ponto pra discussão)
+    return eh_x-fus_l*0.8   # Boom começando no meio da fuselagem (possível ponto pra discussão)
 
 
 class Prototype():
@@ -215,14 +215,20 @@ class Prototype():
 
         min1112_clmax= 2.42 # Peril da raíz
         min1209_clmax= 2.38 # Perfil da ponta
+
+        afonso_clmax= 2.17 # Peril da raíz
+        sergio_clmax= 2.38 # Perfil da ponta
         
         #Definindo as polares para contabilização do arrasto parasita em cada perfil. Também vindo do xf
 
-        e50s201550_profile_drag= ProfileDrag(cl=[-0.245,1.15,2.195],cd=[0.1896,0.015,0.0485])
-        e30s201570_profile_drag= ProfileDrag(cl=[-0.26,1.15,2.243],cd=[0.192,0.015,0.048])
+        #e50s201550_profile_drag= ProfileDrag(cl=[-0.245,1.15,2.195],cd=[0.1896,0.015,0.0485])
+        #e30s201570_profile_drag= ProfileDrag(cl=[-0.26,1.15,2.243],cd=[0.192,0.015,0.048])
 
-        min1112_profile_drag= ProfileDrag(cl=[0.4,1.65,2.42],cd=[0.085, 0.015, 0.0269])
-        min1209_profile_drag= ProfileDrag(cl=[0.4, 1.25, 2.38],cd=[0.06, 0.0177, 0.043])
+        #min1112_profile_drag= ProfileDrag(cl=[0.4,1.65,2.42],cd=[0.085, 0.015, 0.0269])
+        #min1209_profile_drag= ProfileDrag(cl=[0.4, 1.25, 2.38],cd=[0.06, 0.0177, 0.043])
+
+        afonso_profile_drag= ProfileDrag(cl=[-0.23075, 0.70, 2.17],cd=[0.0289, 0.01166, 0.0347])
+        sergio_profile_drag= ProfileDrag(cl=[0.048, 0.74, 1.83],cd=[0.03, 0.008, 0.07])
 
         naca0012_profile_drag= ProfileDrag(cl=[-1.128,0.0,1.128],cd=[0.038,0.0077,0.038])
         naca4412_s1223_70_profile_drag= ProfileDrag(cl=[-1.67,-0.57,0.068],cd=[0.0247,0.01,0.042])
@@ -232,12 +238,12 @@ class Prototype():
         tip_foil='sergio_ponta_fx63137.dat'
         eh_foil='NACA4412_S1223_70.dat'
 
-        root_profile_drag= min1112_profile_drag
-        tip_profile_drag= min1209_profile_drag
+        root_profile_drag= afonso_profile_drag
+        tip_profile_drag= sergio_profile_drag
         eh_profile_drag= naca4412_s1223_70_profile_drag
 
-        self.w_root_clmax= min1112_clmax
-        self.w_tip_clmax= min1209_clmax
+        self.w_root_clmax= afonso_clmax
+        self.w_tip_clmax= sergio_clmax
         
 ################################################### Definindo as secções de cada superfície ###################################################
         self.w_root_section = Section(leading_edge_point=Point(0, 0, w_z),

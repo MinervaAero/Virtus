@@ -5,17 +5,17 @@ Configuração atual 24/02/2024 - Fuselagem e tailboom de placas, elementos inte
 """
 
 # Dados de densidade das estruturas do avião
-dens_w= 0.9       #kg/m2
-dens_fus= 2.3138507103521686  #kg/m2 - Considerando DivinyCell com 2 camadas de carbono em cada lado
-dens_boom= 0.4627701420704337    #kg/m - Com o mesmo material da fuselagem, com largura média de 10 cm e contabilizando já duas placas
-dens_stab= 1.0328202094747172    #kg/m2
-
+dens_w= 0.812                    #kg/m2 - Considerando Asa + Longarina (Noctua usado como exemplo)
+dens_fus= 2.76                   #kg/m2 - Considerando DivinyCell com 2 camadas de carbono em cada lado
+dens_boom= 0.52308               #kg/m - Considerando um tubo de carbono de 40mm de diâmetro e 3mm de parede
+dens_stab= 0.63775               #kg/m2 - Valor médio entre densidade do EH e densidade do EV
+ 
 # Dados de massa dos componentes principais em kg
 
-m_batt= 0.60    # kg
-m_motor= 0.540      # kg- Motor + hélice
-m_tdp= 0.331 + 0.05    # kg - TDP + Rodas e rolamentos
-m_beq= 0.300 + 0.05 + 0.05    # kg - Garfo de aço + Rodas e Rolamentos + Mancais e rolamentos do mecanismo
+m_batt= 0.62                     # kg
+m_motor= 0.500                   # kg- Motor + hélice
+m_tdp= 0.740                     # kg - TDP + Rodas e rolamentos
+m_beq= 0.220                     # kg - Garfo de aço + Rodas e Rolamentos + Mancais e rolamentos do mecanismo
 
 # Dados geométricos fixados
 
