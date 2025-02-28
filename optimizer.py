@@ -64,7 +64,7 @@ prob.driver.options['elitism']= True
 '''
 
 #Adição de um recorder para guardar o histórico da otimização e possibilitar a visualização
-prob.driver.add_recorder(om.SqliteRecorder("./runFXfoil_AS.db"))
+prob.driver.add_recorder(om.SqliteRecorder("./runFXfoil_AS2.db"))
 prob.driver.recording_options['includes'] = ['*']
 prob.driver.recording_options['record_objectives'] = True
 prob.driver.recording_options['record_constraints'] = True
@@ -76,7 +76,7 @@ prob.model.add_design_var('w_bt', lower= 2.5, upper= 3.5)       #alterado
 prob.model.add_design_var('w_baf', lower= 0.1, upper= 0.9)      #alterado
 prob.model.add_design_var('w_cr', lower= 0.25, upper= 0.45)     #alterado
 prob.model.add_design_var('w_ci', lower= 0.85, upper= 0.95)     #adicionado/alterado
-prob.model.add_design_var('w_ct', lower= 0.80, upper= 0.95)     #alterado
+prob.model.add_design_var('w_ct', lower= 0.8, upper= 0.95)      #alterado
 prob.model.add_design_var('w_z', lower= 0.18, upper= 0.24)      #mantido
 prob.model.add_design_var('w_inc', lower= -2, upper= 4)         #alterado
 prob.model.add_design_var('w_wo', lower= -3, upper= 0)          #adicionado

@@ -217,18 +217,18 @@ class Prototype():
         min1209_clmax= 2.38 # Perfil da ponta
 
         afonso_clmax= 2.17 # Peril da raíz
-        sergio_clmax= 2.38 # Perfil da ponta
+        sergio_clmax= 1.83 # Perfil da ponta
         
         #Definindo as polares para contabilização do arrasto parasita em cada perfil. Também vindo do xf
 
         #e50s201550_profile_drag= ProfileDrag(cl=[-0.245,1.15,2.195],cd=[0.1896,0.015,0.0485])
         #e30s201570_profile_drag= ProfileDrag(cl=[-0.26,1.15,2.243],cd=[0.192,0.015,0.048])
 
-        #min1112_profile_drag= ProfileDrag(cl=[0.4,1.65,2.42],cd=[0.085, 0.015, 0.0269])
-        #min1209_profile_drag= ProfileDrag(cl=[0.4, 1.25, 2.38],cd=[0.06, 0.0177, 0.043])
+        min1112_profile_drag= ProfileDrag(cl=[0.4,1.65,2.42],cd=[0.085, 0.015, 0.0269])
+        min1209_profile_drag= ProfileDrag(cl=[0.4, 1.25, 2.38],cd=[0.06, 0.0177, 0.043])
 
         afonso_profile_drag= ProfileDrag(cl=[-0.23075, 0.70, 2.17],cd=[0.0289, 0.01166, 0.0347])
-        sergio_profile_drag= ProfileDrag(cl=[0.048, 0.74, 1.83],cd=[0.03, 0.008, 0.07])
+        sergio_profile_drag= ProfileDrag(cl=[0.048, 0.74, 1.75],cd=[0.03, 0.008, 0.04])
 
         naca0012_profile_drag= ProfileDrag(cl=[-1.128,0.0,1.128],cd=[0.038,0.0077,0.038])
         naca4412_s1223_70_profile_drag= ProfileDrag(cl=[-1.67,-0.57,0.068],cd=[0.0247,0.01,0.042])
@@ -365,6 +365,6 @@ class Prototype():
         
 
 if __name__ == '__main__':
-        banana = Prototype( w_bt= 3.4198159780479185, w_baf= 0.9, w_cr= 0.45, w_ci= 0.95, w_ct= 0.8662243817671794, w_z= 0.18, w_inc= 0.2674686802017355, w_wo= 0.0, w_d= 2.0068862659018567, eh_b= 0.7093482069074675, eh_cr= 0.26879206377124853, eh_ct= 0.9310003242122961, eh_inc= 3.0, ev_b= 0.3696712546117814, ev_ct= 0.9, eh_x= 1.1595948336224073, eh_z= 0.3, motor_x= -0.4,)
+        banana = Prototype( w_bt= 3.2321286257332065, w_baf= 0.9, w_cr= 0.45, w_ci= 0.8547042296684797, w_ct= 0.8, w_z= 0.18, w_inc= -0.3960870755918585, w_wo= 0.0, w_d= 2.1132179687299235, eh_b= 0.6197954432211882, eh_cr= 0.24309488336263088, eh_ct= 0.8, eh_inc= -2.0, ev_b= 0.4, ev_ct= 0.7900185499329802, eh_x= 1.3699514929079597, eh_z= 0.3, motor_x= -0.4,)
         banana.show_geometry()
         print(banana.ar, banana.eh_ar)

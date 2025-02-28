@@ -7,20 +7,20 @@ proc_case=[]
 if (np > 1):
     for p in range(np):
 
-        crp= om.CaseReader('./runFXfoil_AS.db'+str(p))
+        crp= om.CaseReader('./runFXfoil_AS2.db'+str(p))
         driver_cases = crp.list_cases('driver')
         cases = crp.get_cases()
         proc_case.append(cases)
 
 else:
-    crp= om.CaseReader('./runFXfoil_AS.db')
+    crp= om.CaseReader('./runFXfoil_AS2.db')
     driver_cases = crp.list_cases('driver')
     cases = crp.get_cases()
     proc_case.append(cases)
 
 for proc_n in range(len(proc_case)):
 
-    proc_case[proc_n]= proc_case[proc_n][-100:]
+    proc_case[proc_n]= proc_case[proc_n][-330:]
 
 
     for case in proc_case[proc_n]:
