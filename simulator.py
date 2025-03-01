@@ -274,25 +274,25 @@ class Simulator():
         
 
         return self.score
-# if __name__ == '__main__':
-#         banana = Prototype(2.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 3, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= False)
-#         banana_ge = Prototype(2.5, 0.5, 0.5, 1, 0.8, 0.2, 2, 0, 0, 1, 0.25, 1, 3, 1.2, 0.4, 1, 0.4, -0.2, motor_z= 0.30, ge= True)
+if __name__ == '__main__':
+        banana = Prototype( w_bt= 3.2321286257332065, w_baf= 0.9, w_cr= 0.45, w_ci= 0.8547042296684797, w_ct= 0.8, w_z= 0.18, w_inc= -0.3960870755918585, w_wo= 0.0, w_d= 2.1132179687299235, eh_b= 0.6197954432211882, eh_cr= 0.24309488336263088, eh_ct= 0.8, eh_inc= -2.0, ev_b= 0.4, ev_ct= 0.7900185499329802, eh_x= 1.3699514929079597, eh_z= 0.3, motor_x= -0.4, ge= False)
+        banana_ge = Prototype( w_bt= 3.2321286257332065, w_baf= 0.9, w_cr= 0.45, w_ci= 0.8547042296684797, w_ct= 0.8, w_z= 0.18, w_inc= -0.3960870755918585, w_wo= 0.0, w_d= 2.1132179687299235, eh_b= 0.6197954432211882, eh_cr= 0.24309488336263088, eh_ct= 0.8, eh_inc= -2.0, ev_b= 0.4, ev_ct= 0.7900185499329802, eh_x= 1.3699514929079597, eh_z= 0.3, motor_x= -0.4, ge= True)
         
-#         # a0 = Case(name='a0', alpha=0, X_cg= banana.x_cg, Z_cg= banana.z_cg)
+        a0 = Case(name='a0', alpha=0, X_cg= banana.x_cg, Z_cg= banana.z_cg)
     
-#         # session=Session(geometry=banana.geometry,cases=[a0])
+        session=Session(geometry=banana.geometry,cases=[a0])
 
-#         # session._run_analysis
+        session._run_analysis
 
 
-#         # results= session.get_results()
+        results= session.get_results()
 
-#         # with open('./out.json', 'w') as f:
-#         #     f.write(json.dumps(results))
+        with open('./out.json', 'w') as f:
+           f.write(json.dumps(results))
         
 
-#         bananasimulation = Simulator(banana, banana_ge, p= 905.5, t= 25, v=10, mach=0.00)
-#         bananasimulation.scorer()
-#         # bananasimulation.run_a(0)
+        bananasimulation = Simulator(banana, banana_ge, p= 905.5, t= 25, v=10, mach=0.00)
+        bananasimulation.scorer()
+        bananasimulation.run_a(0)
         
  
