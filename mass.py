@@ -7,7 +7,7 @@ Configuração atual 24/02/2024 - Fuselagem e tailboom de placas, elementos inte
 # Dados de densidade das estruturas do avião
 dens_w= 0.812                    #kg/m2 - Considerando Asa + Longarina (Noctua usado como exemplo)
 dens_fus= 2.76                   #kg/m2 - Considerando DivinyCell com 2 camadas de carbono em cada lado
-dens_boom= 0.52308               #kg/m - Considerando um tubo de carbono de 40mm de diâmetro e 3mm de parede
+dens_boom= 0.523                 #kg/m - Considerando um tubo de carbono de 40mm de diâmetro e 3mm de parede
 dens_stab= 0.63775               #kg/m2 - Valor médio entre densidade do EH e densidade do EV
  
 # Dados de massa dos componentes principais em kg

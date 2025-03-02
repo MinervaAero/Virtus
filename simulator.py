@@ -261,8 +261,8 @@ class Simulator():
         if self.a_trim < a_trim_min:
             a_trim_pen= 2+ 10*(a_trim_min - self.a_trim)
 
-        if self.prototype.x_cg_p > 0.365:
-            a_trim_pen= 2+ 10*(self.prototype.x_cg_p - 0.365)
+        if self.prototype.x_cg_p > 0.35:
+            a_trim_pen= 2+ 10*(self.prototype.x_cg_p - 0.35)
 
         if self.prototype.x_cg_p < 0.25:
             a_trim_pen= 2+ 10*(0.25 - self.prototype.x_cg_p)
