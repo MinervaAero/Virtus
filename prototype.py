@@ -234,16 +234,16 @@ class Prototype():
         naca4412_s1223_70_profile_drag= ProfileDrag(cl=[-1.67,-0.57,0.068],cd=[0.0247,0.01,0.042])
 
         # O arquivo .dat deve estar junto com o arquivo deste código, colocar os perfis em uma pasta separada, em primeira análise, gera erros
-        root_foil='MIN1112.dat'
-        tip_foil='MIN1209.dat'
-        eh_foil='NACA0012.dat'
+        root_foil='afonso_raiz_fx73cl2152.dat'
+        tip_foil='sergio_ponta_fx63137.dat'
+        eh_foil='NACA4412_S1223_70.dat'
 
-        root_profile_drag= min1112_profile_drag
-        tip_profile_drag= min1209_profile_drag
-        eh_profile_drag= naca0012_profile_drag
+        root_profile_drag= afonso_profile_drag
+        tip_profile_drag= sergio_profile_drag
+        eh_profile_drag= naca4412_s1223_70_profile_drag
 
-        self.w_root_clmax= min1112_clmax
-        self.w_tip_clmax= min1209_clmax
+        self.w_root_clmax= afonso_clmax
+        self.w_tip_clmax= sergio_clmax
         
 ################################################### Definindo as secções de cada superfície ###################################################
         self.w_root_section = Section(leading_edge_point=Point(0, 0, w_z),
@@ -286,14 +286,14 @@ class Prototype():
         
         self.ev_root_section = Section(leading_edge_point=Point(ev_x, 0, ev_z),
                                         chord=ev_cr,
-                                        airfoil= FileAirfoil(eh_foil),#NacaAirfoil(naca='0012'),
-                                        profile_drag= eh_profile_drag#naca0012_profile_drag
+                                        airfoil= NacaAirfoil(naca='0012'),
+                                        profile_drag= naca0012_profile_drag
                                         )
         
         self.ev_tip_section = Section(leading_edge_point=Point(ev_x + (ev_cr-eh_ct)/4, 0, ev_z+ev_b),
                                         chord=ev_ct,
-                                        airfoil= FileAirfoil(eh_foil),#NacaAirfoil(naca='0012'),
-                                        profile_drag= eh_profile_drag#naca0012_profile_drag
+                                        airfoil= NacaAirfoil(naca='0012'),
+                                        profile_drag= naca0012_profile_drag
                                         )
         
 ######################################################## Definindo as superfícies com base nas secções ########################################################
