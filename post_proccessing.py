@@ -20,7 +20,7 @@ else:
 
 for proc_n in range(len(proc_case)):
 
-    proc_case[proc_n]= proc_case[proc_n][-330:]
+    proc_case[proc_n]= proc_case[proc_n][-100:]
 
 
     for case in proc_case[proc_n]:

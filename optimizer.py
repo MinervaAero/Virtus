@@ -19,7 +19,7 @@ individual_outputs= ['score','cp', 'vht', 'vvt', 'a_trim', 'me', 'ar', 'eh_ar', 
 #Subsistema de avaliação
 prob.model.add_subsystem('individual_scorer', Individual(), promotes_inputs= individual_inputs)
 
-prob.model.set_input_defaults('w_bt', 3.0)
+prob.model.set_input_defaults('w_bt', 2.7)
 prob.model.set_input_defaults('w_baf', 0.5)
 prob.model.set_input_defaults('w_cr', 0.4)
 prob.model.set_input_defaults('w_ci', 0.90) #adicionado
@@ -64,7 +64,7 @@ prob.driver.options['elitism']= True
 '''
 
 #Adição de um recorder para guardar o histórico da otimização e possibilitar a visualização
-prob.driver.add_recorder(om.SqliteRecorder("./runMSfoil.db"))
+prob.driver.add_recorder(om.SqliteRecorder("./runCSfoil2.db"))
 prob.driver.recording_options['includes'] = ['*']
 prob.driver.recording_options['record_objectives'] = True
 prob.driver.recording_options['record_constraints'] = True
@@ -72,7 +72,7 @@ prob.driver.recording_options['record_desvars'] = True
 
 # Adicionando todas as variáveis de design
 
-prob.model.add_design_var('w_bt', lower= 2.5, upper= 3.5)       #alterado
+prob.model.add_design_var('w_bt', lower= 2.5, upper= 3.0)       #alterado
 prob.model.add_design_var('w_baf', lower= 0.1, upper= 0.9)      #alterado
 prob.model.add_design_var('w_cr', lower= 0.25, upper= 0.52)     #alterado
 prob.model.add_design_var('w_ci', lower= 0.85, upper= 0.95)     #adicionado/alterado
