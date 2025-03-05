@@ -218,6 +218,8 @@ class Prototype():
 
         afonso_clmax= 2.17 # Peril da raíz
         sergio_clmax= 1.83 # Perfil da ponta
+
+        cavaco_clmax= 2.40 # Peril da raíz
         
         #Definindo as polares para contabilização do arrasto parasita em cada perfil. Também vindo do xf
 
@@ -229,20 +231,22 @@ class Prototype():
 
         afonso_profile_drag= ProfileDrag(cl=[-0.23075, 0.70, 2.17],cd=[0.0289, 0.01166, 0.0347])
         sergio_profile_drag= ProfileDrag(cl=[0.048, 0.74, 1.75],cd=[0.03, 0.008, 0.04])
+        
+        cavaco_profile_drag= ProfileDrag(cl=[0.12, 1.2, 2.40],cd=[0.095, 0.014, 0.035])
 
         naca0012_profile_drag= ProfileDrag(cl=[-1.128,0.0,1.128],cd=[0.038,0.0077,0.038])
         naca4412_s1223_70_profile_drag= ProfileDrag(cl=[-1.67,-0.57,0.068],cd=[0.0247,0.01,0.042])
 
         # O arquivo .dat deve estar junto com o arquivo deste código, colocar os perfis em uma pasta separada, em primeira análise, gera erros
-        root_foil='afonso_raiz_fx73cl2152.dat'
+        root_foil='MIN1112.dat'
         tip_foil='sergio_ponta_fx63137.dat'
         eh_foil='NACA4412_S1223_70.dat'
 
-        root_profile_drag= afonso_profile_drag
+        root_profile_drag= min1112_profile_drag
         tip_profile_drag= sergio_profile_drag
         eh_profile_drag= naca4412_s1223_70_profile_drag
 
-        self.w_root_clmax= afonso_clmax
+        self.w_root_clmax= min1112_clmax
         self.w_tip_clmax= sergio_clmax
         
 ################################################### Definindo as secções de cada superfície ###################################################

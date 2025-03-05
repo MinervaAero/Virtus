@@ -64,7 +64,7 @@ prob.driver.options['elitism']= True
 '''
 
 #Adição de um recorder para guardar o histórico da otimização e possibilitar a visualização
-prob.driver.add_recorder(om.SqliteRecorder("./runASfoil2.db"))
+prob.driver.add_recorder(om.SqliteRecorder("./runMSfoil.db"))
 prob.driver.recording_options['includes'] = ['*']
 prob.driver.recording_options['record_objectives'] = True
 prob.driver.recording_options['record_constraints'] = True
