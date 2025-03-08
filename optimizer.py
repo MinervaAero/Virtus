@@ -64,7 +64,7 @@ prob.driver.options['elitism']= True
 '''
 
 #Adição de um recorder para guardar o histórico da otimização e possibilitar a visualização
-prob.driver.add_recorder(om.SqliteRecorder("./runCSfoil2.db"))
+prob.driver.add_recorder(om.SqliteRecorder("./runCSfoil600.db"))
 prob.driver.recording_options['includes'] = ['*']
 prob.driver.recording_options['record_objectives'] = True
 prob.driver.recording_options['record_constraints'] = True
@@ -72,7 +72,7 @@ prob.driver.recording_options['record_desvars'] = True
 
 # Adicionando todas as variáveis de design
 
-prob.model.add_design_var('w_bt', lower= 2.5, upper= 3.0)       #alterado
+prob.model.add_design_var('w_bt', lower= 2.5, upper= 3.5)       #alterado
 prob.model.add_design_var('w_baf', lower= 0.1, upper= 0.9)      #alterado
 prob.model.add_design_var('w_cr', lower= 0.25, upper= 0.52)     #alterado
 prob.model.add_design_var('w_ci', lower= 0.85, upper= 0.95)     #adicionado/alterado
