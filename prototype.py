@@ -221,6 +221,9 @@ class Prototype():
 
         cavaco_clmax= 2.40 # Peril da raíz
         pontal_clmax= 1.42 # Peril da ponta
+
+        eppler_clmax=2.05  #Perfil da ponta
+
         #Definindo as polares para contabilização do arrasto parasita em cada perfil. Também vindo do xf
 
         #e50s201550_profile_drag= ProfileDrag(cl=[-0.245,1.15,2.195],cd=[0.1896,0.015,0.0485])
@@ -236,21 +239,23 @@ class Prototype():
 
         pontal_profile_drag = ProfileDrag(cl=[-0.1, 1.2, 1.42],cd=[0.28, 0.012, 0.06])
 
+        eppler_profile_drag = ProfileDrag(cl=[0.15, 1.0, 2.05],cd=[0.03, 0.011, 0.22])
+
         naca0012_profile_drag= ProfileDrag(cl=[-1.128,0.0,1.128],cd=[0.038,0.0077,0.038])
         naca4412_s1223_70_profile_drag= ProfileDrag(cl=[-1.67,-0.57,0.068],cd=[0.0247,0.01,0.042])
     
 
         # O arquivo .dat deve estar junto com o arquivo deste código, colocar os perfis em uma pasta separada, em primeira análise, gera erros
         root_foil='cavaco_raiz_s1223.dat'
-        tip_foil='sergio_ponta_fx63137.dat'
+        tip_foil='eppler.dat'
         eh_foil='NACA4412_S1223_70.dat'
 
         root_profile_drag= cavaco_profile_drag
-        tip_profile_drag= sergio_profile_drag
+        tip_profile_drag= eppler_profile_drag
         eh_profile_drag= naca4412_s1223_70_profile_drag
 
         self.w_root_clmax= cavaco_clmax
-        self.w_tip_clmax= sergio_clmax
+        self.w_tip_clmax= eppler_clmax
         
 ################################################### Definindo as secções de cada superfície ###################################################
         self.w_root_section = Section(leading_edge_point=Point(0, 0, w_z),

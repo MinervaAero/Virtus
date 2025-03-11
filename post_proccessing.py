@@ -7,13 +7,13 @@ proc_case=[]
 if (np > 1):
     for p in range(np):
 
-        crp= om.CaseReader('./runCSfoil600.db'+str(p))
+        crp= om.CaseReader('./runCE.db'+str(p))
         driver_cases = crp.list_cases('driver')
         cases = crp.get_cases()
         proc_case.append(cases)
 
 else:
-    crp= om.CaseReader('./runCSfoil600.db')
+    crp= om.CaseReader('./runCE.db')
     driver_cases = crp.list_cases('driver')
     cases = crp.get_cases()
     proc_case.append(cases)
